@@ -184,13 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Setup quiz
 function setupQuiz() {
     const topicButtons = document.querySelectorAll('.topic-btn');
+    const restartBtn = document.getElementById('restartQuizBtn');
+    
+    if (topicButtons.length === 0) return;
+
     topicButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             selectTopic(btn.dataset.topic);
         });
     });
 
-    const restartBtn = document.getElementById('restartQuizBtn');
     if (restartBtn) {
         restartBtn.addEventListener('click', restartQuiz);
     }

@@ -42,6 +42,42 @@ body.light-mode {
   z-index: 100;
   animation: slideDown 0.5s ease-out;
   box-shadow: 0 8px 32px rgba(166, 123, 250, 0.2);
+  will-change: auto;
+}
+
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem 0.75rem;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-toggler:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-collapse {
+  transition: all 0.3s ease !important;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav {
+    padding-top: 1rem;
+  }
+  
+  .nav-item {
+    padding: 0.5rem 0;
+  }
+  
+  .nav-link {
+    padding-left: 1.5rem !important;
+  }
+  
+  #themeToggle {
+    margin-left: 1.5rem !important;
+    margin-top: 0.5rem;
+  }
 }
 
 .navbar-brand {

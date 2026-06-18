@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupBreathingControls() {
     const startBtn = document.getElementById('startBreathingBtn');
     const stopBtn = document.getElementById('stopBreathingBtn');
+    
+    if (!startBtn || !stopBtn) return;
+    
+    // Initialize button states
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
 
     startBtn.addEventListener('click', startBreathingExercise);
     stopBtn.addEventListener('click', stopBreathingExercise);

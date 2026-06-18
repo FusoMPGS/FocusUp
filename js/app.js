@@ -1,11 +1,17 @@
 // Main App JavaScript
 
+// Track if app is already initialized
+let appInitialized = false;
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
-    initializeApp();
+    if (!appInitialized) {
+        initializeApp();
+        appInitialized = true;
+    }
 });
 
-// Initialize the application
+// Initialize the application (runs only once)
 function initializeApp() {
     setupNavigation();
     setupThemeToggle();
@@ -22,58 +28,82 @@ function initializeApp() {
 function setupNavigation() {
     const navLinks = document.querySelectorAll('[data-section]');
     const sections = document.querySelectorAll('.section');
-
+    
+    // Prevent duplicate listeners by removing old ones
     navLinks.forEach(link => {
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+    });
+    
+    // Re-query after cloning
+    const freshNavLinks = document.querySelectorAll('[data-section]');
+
+    freshNavLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const sectionId = link.getAttribute('data-section');
+            const targetSection = document.getElementById(sectionId);
+            
+            if (!targetSection) return;
             
             // Remove active class from all sections and links
             sections.forEach(section => section.classList.remove('active'));
-            navLinks.forEach(l => l.classList.remove('active'));
+            freshNavLinks.forEach(l => l.classList.remove('active'));
             
             // Add active class to selected section and link
-            document.getElementById(sectionId).classList.add('active');
+            targetSection.classList.add('active');
             link.classList.add('active');
             
-            // Update navbar active state
-            updateNavbarActive(link);
+            // Close navbar menu on mobile after navigation
+            const navbarToggle = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                navbarToggle.click();
+            }
         });
     });
 
     // Set initial active section
-    document.getElementById('home').classList.add('active');
-    document.querySelector('[data-section="home"]').classList.add('active');
-}
-
-// Update navbar active state
-function updateNavbarActive(link) {
-    const navLinks = document.querySelectorAll('[data-section]');
-    navLinks.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
+    const homeSection = document.getElementById('home');
+    const homeLink = document.querySelector('[data-section="home"]');
+    if (homeSection) homeSection.classList.add('active');
+    if (homeLink) homeLink.classList.add('active');
 }
 
 // Theme toggle (Dark mode)
 function setupThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+    
     const savedTheme = localStorage.getItem('focusup-theme') || 'light';
 
     // Set initial theme
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     }
 
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDarkMode = document.body.classList.contains('dark-mode');
-        localStorage.setItem('focusup-theme', isDarkMode ? 'dark' : 'light');
-        
-        // Update icon
-        themeToggle.innerHTML = isDarkMode 
-            ? '<i class="fas fa-sun"></i>' 
-            : '<i class="fas fa-moon"></i>';
-    });
+    // Remove old listeners by cloning
+    const newThemeToggle = themeToggle.cloneNode(true);
+    themeToggle.parentNode.replaceChild(newThemeToggle, themeToggle);
+    
+    const freshThemeToggle = document.getElementById('themeToggle');
+    if (freshThemeToggle) {
+        freshThemeToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('focusup-theme', isDarkMode ? 'dark' : 'light');
+            
+            // Update icon
+            freshThemeToggle.innerHTML = isDarkMode 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+        });
+    }
 }
 
 // Load user preferences

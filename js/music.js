@@ -78,6 +78,13 @@ function setupMusicPlayer() {
     const volumeSlider = document.getElementById('volumeSlider');
     const playlistItems = document.querySelectorAll('.playlist-item');
 
+    if (!playBtn || !pauseBtn || !stopBtn || !volumeSlider) return;
+
+    // Initialize button states
+    playBtn.disabled = false;
+    pauseBtn.disabled = true;
+    stopBtn.disabled = true;
+
     // Player button events
     playBtn.addEventListener('click', playMusic);
     pauseBtn.addEventListener('click', pauseMusic);

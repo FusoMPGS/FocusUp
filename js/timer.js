@@ -23,6 +23,8 @@ function setupTimerControls() {
     const resetBtn = document.getElementById('resetTimerBtn');
     const focusInput = document.getElementById('focusTime');
     const breakInput = document.getElementById('breakTime');
+    
+    if (!startBtn || !pauseBtn || !resetBtn || !focusInput || !breakInput) return;
 
     // Load saved preferences
     const prefs = focusUpApp.loadUserPreferences();
@@ -31,6 +33,10 @@ function setupTimerControls() {
     focusTimeDuration = focusInput.value * 60;
     breakTimeDuration = breakInput.value * 60;
     focusTimeRemaining = focusTimeDuration;
+    
+    // Initialize button states
+    pauseBtn.disabled = true;
+    resetBtn.disabled = false;
 
     startBtn.addEventListener('click', startTimer);
     pauseBtn.addEventListener('click', pauseTimer);
