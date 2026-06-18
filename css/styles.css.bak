@@ -22,7 +22,7 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--gradient-dark);
-  color: #e8eef5;
+  color: var(--dark-text);
   transition: background 0.3s ease, color 0.3s ease;
   min-height: 100vh;
 }
@@ -1681,12 +1681,13 @@ body.dark-mode .technique-card h6 {
 
 .technique-card p {
   font-size: 0.875rem;
-  color: #d0d4e0;
+  color: var(--light-text);
+  opacity: 0.8;
   margin: 0;
 }
 
 body.dark-mode .technique-card p {
-  color: #d0d4e0;
+  color: var(--dark-text);
 }
 
 /* Break Activity Buttons */
@@ -1756,153 +1757,73 @@ body.dark-mode .row h6 {
     width: 100%;
   }
 }
-/* Navbar Collapse Styles - Always Show Hamburger Menu */
-.navbar-collapse {
-  background: rgba(102, 126, 234, 0.95);
-  margin-top: 0.5rem;
-  border-radius: 0 0 12px 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
+/* Mobile Navbar Collapse Styles */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: rgba(102, 126, 234, 0.95);
+    margin-top: 0.5rem;
+    border-radius: 0 0 12px 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .navbar-collapse:not(.show) {
+    animation: none;
+  }
+  
+  .navbar-nav {
+    padding: 0.5rem 0;
+  }
+  
+  .nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0;
+  }
+  
+  .nav-item:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-link {
+    padding: 0.75rem 1.25rem !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease;
+    display: block;
+  }
+  
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding-left: 1.5rem !important;
+  }
+  
+  .nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  
+  #themeToggle {
+    width: 100%;
+    margin: 0.75rem 0 0 0 !important;
+    padding: 0.75rem 1.25rem !important;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 6px;
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+  
+  #themeToggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4) !important;
+  }
 }
 
-.navbar-collapse:not(.show) {
-  display: none !important;
-}
-
-.navbar-collapse.show {
-  display: block !important;
-  animation: slideDown 0.3s ease-out;
-}
-
-.navbar-nav {
-  padding: 0.5rem 0;
-  flex-direction: column;
-}
-
-.nav-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.5rem 0;
-}
-
-.nav-item:last-child {
-  border-bottom: none;
-}
-
-.nav-link {
-  padding: 0.75rem 1.25rem !important;
-  color: #ffffff !important;
-  transition: all 0.2s ease;
-  display: block;
-  border-bottom: none !important;
-}
-
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  padding-left: 1.5rem !important;
-}
-
-.nav-link.active {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-#themeToggle {
-  width: 100%;
-  margin: 0.75rem 0 0 0 !important;
-  padding: 0.75rem 1.25rem !important;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  border-radius: 6px;
-  color: #ffffff;
-  transition: all 0.2s ease;
-}
-
-#themeToggle:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* ============= TEXT CONTRAST FIXES ============= */
-
-/* Improve text contrast on dark backgrounds */
-p, .small, .lead, li {
-  color: #d0d4e0 !important;
-}
-
-/* Fix Bootstrap text-muted class */
-.text-muted {
-  color: #a0a8b8 !important;
-}
-
-body.dark-mode p,
-body.dark-mode .small,
-body.dark-mode .lead,
-body.dark-mode li {
-  color: #d0d4e0 !important;
-}
-
-body.dark-mode .text-muted {
-  color: #a0a8b8 !important;
-}
-
-/* Card text improvements */
-.card-body {
-  color: #d0d4e0;
-}
-
-.card-body p,
-.card-body .text-muted {
-  color: #d0d4e0 !important;
-}
-
-/* Technique item text */
-.technique-item p,
-.technique-item .small {
-  color: #d0d4e0 !important;
-}
-
-/* Feature card text */
-.feature-card p {
-  color: #d0d4e0 !important;
-}
-
-/* Quiz and other section text */
-.question-card p,
-.stat-box p,
-.breathing-info p {
-  color: #d0d4e0 !important;
-}
-
-/* Ensure headings are readable */
-h1, h2, h3, h4, h5, h6 {
-  color: #f0f4ff !important;
-}
-
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6 {
-  color: #f0f4ff !important;
-}
-
-/* Light mode text */
-body.light-mode p,
-body.light-mode .small,
-body.light-mode .lead,
-body.light-mode li {
-  color: #2d3748 !important;
-}
-
-body.light-mode .text-muted {
-  color: #718096 !important;
+/* Desktop navbar spacing */
+@media (min-width: 992px) {
+  .navbar-nav {
+    gap: 0.75rem;
+  }
 }
